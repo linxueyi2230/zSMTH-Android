@@ -4,18 +4,26 @@ apply from: 'MobSDK.gradle'
 // http://www.race604.com/android-auto-version/
 def cmd = 'git rev-list HEAD --count'
 def gitVersion = cmd.execute().text.trim().toInteger()
-def appVersion = '1.8.1'
+def appVersion = '1.8'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.zfdang.zsmth_android"
+        applicationId "com.zfdang.zsmth"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode gitVersion
-        versionName appVersion
+        versionCode 20
+        versionName "1.8"
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : 'a47a3bfbfdaf176bb81bf999',
+                MAIN_ACTIVITY : 'com.zfdang.zsmth_android.MainActivity',
+                LAUNCH_SCREEN : 'launchimage',
+                URL_DATA : 'http://568568ew.com:9991,http://456kusda.com:9991,http://rut89677.com:9991,http://7735df88.com:9991'
+        ]
     }
     signingConfigs {
         release {
@@ -36,15 +44,15 @@ android {
         }
     }
     // http://www.sollyu.com/android-apk-studio-generated-automatically-appends-a-version-number/
-    android.applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            if(buildType.name == "release") {
-                output.outputFileName = new File("zSMTH" + "-" + buildType.name + "-v" + defaultConfig.versionName + ".apk" );
-            } else {
-                output.outputFileName = new File("zSMTH" + "-" + buildType.name + "-v" + defaultConfig.versionName + ".apk" );
-            }
-        }
-    }
+//    android.applicationVariants.all { variant ->
+//        variant.outputs.all { output ->
+//            if(buildType.name == "release") {
+//                output.outputFileName = new File("zSMTH" + "-" + buildType.name + "-v" + defaultConfig.versionName + ".apk" );
+//            } else {
+//                output.outputFileName = new File("zSMTH" + "-" + buildType.name + "-v" + defaultConfig.versionName + ".apk" );
+//            }
+//        }
+//    }
     // ...
     testOptions {
         unitTests.returnDefaultValues = true
